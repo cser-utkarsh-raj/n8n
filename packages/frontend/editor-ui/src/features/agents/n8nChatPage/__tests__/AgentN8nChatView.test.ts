@@ -127,6 +127,24 @@ describe('AgentN8nChatView', () => {
 		getN8nChatAgentMock.mockResolvedValue(agentItem);
 	});
 
+	it('shows the chat history button only once the agent has loaded', async () => {
+		let resolveAgent: (value: AgentChatListItem) => void = () => {};
+		getN8nChatAgentMock.mockReturnValueOnce(
+			new Promise((resolve) => {
+				resolveAgent = resolve;
+			}),
+		);
+		const wrapper = renderView();
+		await flushPromises();
+
+		expect(wrapper.find('[data-test-id="agent-n8n-chat-history-toggle"]').exists()).toBe(false);
+
+		resolveAgent(agentItem);
+		await flushPromises();
+
+		expect(wrapper.find('[data-test-id="agent-n8n-chat-history-toggle"]').exists()).toBe(true);
+	});
+
 	it('renders the agent avatar, name, description, and the placeholder-driving name', async () => {
 		const wrapper = renderView();
 		await flushPromises();
@@ -271,18 +289,8 @@ describe('AgentN8nChatView', () => {
 		expect(panel.props('continueSessionId')).toEqual(expect.any(String));
 	});
 
-	it('goes back in-app when the previous route resolves', async () => {
+	it('goes to the n8n Assistant page, not back in history, even with in-app history', async () => {
 		historyBack.value = '/some/previous/route';
-		const wrapper = renderView();
-		await flushPromises();
-
-		await wrapper.get('[data-testid="n8n-chat-back"]').trigger('click');
-		expect(backMock).toHaveBeenCalled();
-		expect(pushMock).not.toHaveBeenCalled();
-	});
-
-	it('falls back to the n8n Assistant view when there is no in-app history', async () => {
-		historyBack.value = undefined;
 		const wrapper = renderView();
 		await flushPromises();
 
