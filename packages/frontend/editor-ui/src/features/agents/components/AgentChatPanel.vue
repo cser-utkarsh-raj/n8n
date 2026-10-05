@@ -165,7 +165,6 @@ const {
 
 const editingQueueId = ref<string>();
 const queueRows = queuedMessages;
-const messageQueue = useTemplateRef<InstanceType<typeof ChatMessageQueue>>('messageQueue');
 const queueExpanded = ref(false);
 const queueOrder = shallowRef<AgentChatQueueItem[]>();
 const displayedQueueRows = computed(() => queueOrder.value ?? queueRows.value);
@@ -305,8 +304,6 @@ async function moveQueueItem(items: AgentChatQueueItem[], from: number, to: numb
 	);
 	if (queueOrder.value !== reordered) return;
 	queueOrder.value = undefined;
-	await nextTick();
-	messageQueue.value?.focusItem(item.id);
 }
 const {
 	jobs: backgroundJobs,
@@ -1183,7 +1180,6 @@ onBeforeUnmount(() => {
 				<template #above>
 					<ChatMessageQueue
 						v-if="displayedQueueRows.length"
-						ref="messageQueue"
 						:displayed-items="queueDisplayItems"
 						:expanded="queueExpanded"
 						:is-reordering="isReorderingQueue"
@@ -1196,7 +1192,6 @@ onBeforeUnmount(() => {
 						@update:expanded="queueExpanded = $event"
 						@drag-start="startQueueDrag"
 						@drag-end="endQueueDrag"
-						@move="moveQueueItem(queueRows, $event.from, $event.to)"
 						@steer="steerQueuedMessage"
 						@edit="editQueuedMessage"
 						@remove="removeQueuedMessage"
