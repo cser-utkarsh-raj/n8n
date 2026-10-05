@@ -147,6 +147,7 @@ vi.mock('@n8n/design-system', async (importOriginal) => ({
 		emits: ['click'],
 		template: '<button v-bind="$attrs" @click="$emit(\'click\')" />',
 	},
+	N8nScrollArea: { template: '<div><slot /></div>' },
 	N8nText: { template: '<span><slot /></span>' },
 	N8nTooltip: { template: '<div><slot /></div>' },
 	TOOLTIP_DELAY_MS: 500,
