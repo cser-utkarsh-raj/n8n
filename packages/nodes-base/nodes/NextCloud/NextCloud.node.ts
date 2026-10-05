@@ -17,7 +17,7 @@ import {
 import { URLSearchParams } from 'url';
 import { parseString } from 'xml2js';
 
-import { nextCloudApiRequest } from './GenericFunctions';
+import { nextCloudApiRequest, normalizeWebDavUrl } from './GenericFunctions';
 import { wrapData } from '../../utils/utilities';
 
 export class NextCloud implements INodeType {
@@ -880,6 +880,10 @@ export class NextCloud implements INodeType {
 			credentials = await this.getCredentials('nextCloudApi');
 		} else {
 			credentials = await this.getCredentials('nextCloudOAuth2Api');
+		}
+
+		if (typeof credentials.webDavUrl === 'string') {
+			credentials.webDavUrl = normalizeWebDavUrl(credentials.webDavUrl);
 		}
 
 		let resource: string = '';
