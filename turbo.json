@@ -190,7 +190,7 @@
 		},
 		"@n8n/tournament#lint": {
 			"dependsOn": ["^build", "@n8n/oxlint-config#build"]
-    },
+		},
 		"@n8n/telemetry#lint": {
 			"dependsOn": ["^build", "@n8n/oxlint-config#build"]
 		},

@@ -374,7 +374,10 @@
 		"nodes/Aws/__tests__/AwsLambda.node.test.ts"
 	],
 	"packages/quality/policy/code-health": ["src/cli.ts", "src/cli/arg-parser.test.ts"],
-	"packages/quality/environments/containers": ["services/keycloak.ts", "tests/resource-tracker.test.ts"],
+	"packages/quality/environments/containers": [
+		"services/keycloak.ts",
+		"tests/resource-tracker.test.ts"
+	],
 	"packages/quality/testing/janitor": ["src/cli.test.ts", "src/cli.ts"],
 	"packages/quality/testing/playwright": ["coverage-options.test.ts", "fixtures/base.ts"],
 	"packages/quality/policy/rules-engine": ["src/ast/ast-rule.ts", "src/ast/imports.test.ts"],
