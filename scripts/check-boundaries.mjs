@@ -80,7 +80,7 @@ const exempted = exemptedHarness + exemptedContainerHarness + exemptedBrowserShi
 const current = Number(match[1]) - exempted;
 
 if (write) {
-	writeFileSync(baselineFile, JSON.stringify({ issues: current }, null, 2) + '\n');
+	writeFileSync(baselineFile, JSON.stringify({ issues: current }, null, '\t') + '\n');
 	console.log(`Wrote baseline: ${current} issues (was ${baseline}).`);
 	process.exit(0);
 }
